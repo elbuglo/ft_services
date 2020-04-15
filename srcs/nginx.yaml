@@ -1,0 +1,42 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+    - name: http
+      port: 80
+      nodePort : 80
+    - name: https
+      nodePort : 443
+      port: 443
+    - name: ssh
+      port: 22
+      nodePort: 3022
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx_image
+        imagePullPolicy: Never
+        securityContext:
+          privileged: true
