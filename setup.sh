@@ -6,7 +6,7 @@
 #    By: lulebugl <lulebugl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 10:24:31 by lulebugl          #+#    #+#              #
-#    Updated: 2020/04/15 10:27:27 by lulebugl         ###   ########.fr        #
+#    Updated: 2020/04/15 10:47:42 by lulebugl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ eval $(minikube docker-env)
 sed -i s/admin/$SSH_USERNAME/g				srcs/nginx/srcs/install.sh
 sed -i s/admin/$SSH_PASSWORD/g				srcs/nginx/srcs/install.sh
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/nginx/srcs/index.html
+sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/telegraf.yaml
 sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g	srcs/nginx/srcs/index.html
 sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g	srcs/nginx/srcs/index.html
 sed -i s/FTPS_USERNAME/$FTPS_USERNAME/g		srcs/ftps/srcs/install.sh
@@ -49,7 +50,7 @@ sed -i s/FTPS_PASSWORD/$FTPS_PASSWORD/g		srcs/ftps/srcs/install.sh
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/ftps/Dockerfile
 ##sed -i '' for mac 
 
-SERVICE_LIST="nginx grafana ftps influxdb"
+SERVICE_LIST="nginx ftps telegraf"
 
 # Clean if arg[1] is clean
 
@@ -69,6 +70,7 @@ printf "Building Docker images...\n"
 
 docker build -t nginx_image srcs/nginx
 docker build -t ftps_image srcs/ftps
+docker build -t telegraf_image srcs/telegraf
 
 # docker build -t influxdb_image srcs/influxdb
 # docker build -t grafana_image srcs/grafana
