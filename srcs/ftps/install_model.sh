@@ -9,8 +9,8 @@ yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -subj '/C=FR/ST=75/L=Paris/O=42/CN=lulebugl' \
 -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/private/pure-ftpd.pem 
 
-adduser -D "nine"
-echo "nine:nine" | chpasswd
+adduser -D "__FTPS_USERNAME__"
+echo "__FTPS_USERNAME__:__FTPS_PASSWORD__" | chpasswd
 
 openrc
 touch /run/openrc/softlevel

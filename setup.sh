@@ -18,8 +18,8 @@ SSH_PASSWORD=nine
 DB_USER=nine
 DB_PASSWORD=nine
 
-FTPS_USERNAME=nine
-FTPS_PASSWORD=nine
+FTPS_USERNAME=admin
+FTPS_PASSWORD=admin
 
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
@@ -34,29 +34,34 @@ MINIKUBE_IP=$(minikube ip)
 # Set the docker images in Minikube
 eval $(minikube docker-env)
 
-# cp srcs/telegraf.conf srcs/ftps/srcs/
-# cp srcs/telegraf.conf srcs/grafana/srcs/
-# cp srcs/telegraf.conf srcs/influxdb/srcs/
-# cp srcs/telegraf.conf srcs/nginx/srcs/
-
 # Replacing
 
+# NGINX
+cp	srcs/nginx/srcs/index_model.html		srcs/nginx/srcs/index.html
+cp	srcs/nginx/srcs/install_model.sh		srcs/nginx/srcs/install.sh
 sed -i s/admin/$SSH_USERNAME/g				srcs/nginx/srcs/install.sh
 sed -i s/admin/$SSH_PASSWORD/g				srcs/nginx/srcs/install.sh
+sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g	srcs/nginx/srcs/index.html
+sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g	srcs/nginx/srcs/index.html
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/nginx/srcs/index.html
+
+# TELEGRAF
+cp	srcs/telegraf/telegraf_model.conf		srcs/telegraf/telegraf.conf
 cp	srcs/telegraf_model.yaml				srcs/telegraf.yaml
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/telegraf.yaml
-cp	srcs/telegraf/telegraf_model.conf		srcs/telegraf/telegraf.conf
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/telegraf/telegraf.conf
 sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g	srcs/nginx/srcs/index.html
 sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g	srcs/nginx/srcs/index.html
-sed -i s/FTPS_USERNAME/$FTPS_USERNAME/g		srcs/ftps/srcs/install.sh
-sed -i s/FTPS_PASSWORD/$FTPS_PASSWORD/g		srcs/ftps/srcs/install.sh
+
+# FTPS
+cp	srcs/ftps/install_model.sh				srcs/ftps/install.sh
 cp	srcs/ftps/Dockerfile_model				srcs/ftps/Dockerfile
+sed -i s/__FTPS_USERNAME__/$FTPS_USERNAME/g	srcs/ftps/install.sh
+sed -i s/__FTPS_PASSWORD__/$FTPS_PASSWORD/g	srcs/ftps/install.sh
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/ftps/Dockerfile
 ##sed -i '' for mac 
 
-SERVICE_LIST="ftps telegraf influxdb grafana"
+SERVICE_LIST="ftps telegraf influxdb grafana nginx"
 
 # Clean if arg[1] is clean
 
@@ -77,7 +82,7 @@ echo "UPDATE data_source SET url = 'http://influxdb:8086'" | sqlite3 srcs/grafan
 
 printf "Building Docker images...\n"
 
-#docker build -t nginx_image srcs/nginx
+docker build -t nginx_image srcs/nginx
 docker build -t ftps_image srcs/ftps
 docker build -t telegraf_image srcs/telegraf
 docker build -t influxdb_image srcs/influxdb

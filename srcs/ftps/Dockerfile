@@ -1,0 +1,12 @@
+FROM alpine
+
+USER root
+
+COPY ./install.sh /tmp/install.sh
+
+RUN chmod 755 /tmp/install.sh
+RUN /tmp/install.sh
+
+EXPOSE 21 21000
+
+ENTRYPOINT pure-ftpd -j -Y 2 -p 21000:21000 -P _MINIKUBE_IP__
