@@ -13,4 +13,4 @@ COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 EXPOSE 21 21000
 
-ENTRYPOINT /etc/init.d/telegraf start; pure-ftpd -j -Y 2 -p 21000:21000 -P 192.168.99.100
+ENTRYPOINT /etc/init.d/telegraf start; pure-ftpd -j -Y 2 -p 21000:21000 -P __MINIKUBE_IP__
