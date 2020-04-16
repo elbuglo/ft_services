@@ -73,7 +73,7 @@ then
 fi
 
 echo -ne " Update grafana db ... \n"
-echo "UPDATE data_source SET url = 'http://$MINIKUKE_IP:8086'" | sqlite3 srcs/grafana/grafana.db
+echo "UPDATE data_source SET url = 'http://influxdb:8086'" | sqlite3 srcs/grafana/grafana.db
 
 printf "Building Docker images...\n"
 
@@ -102,12 +102,15 @@ do
 		sleep 1;
 		echo "..."
 	done
-	#sed -i s/__$service-POD__/$(kubectl get pods | grep $service | cut -d" " -f1)/g srcs/grafana/srcs/global.json
+	##sed -i s/__$service-POD__/$(kubectl get pods | grep $service | cut -d" " -f1)/g srcs/grafana/srcs/global.json
 	echo "done"
 done 
 
-# kubectl exec -i $(kubectl get pods | grep grafana | cut -d" " -f1) -- /bin/sh -c "cat >> /usr/share/grafana/conf/provisioning/dashboards/global.json" < srcs/grafana/srcs/global.json > /dev/null 2>&1
-# echo "Dashboard ok !"
+# changing password for grafana
+kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin"
+
+#kubectl exec -i $(kubectl get pods | grep grafana | cut -d" " -f1) -- /bin/sh -c "cat >> /usr/share/grafana/conf/provisioning/dashboards/global.json" < srcs/grafana/srcs/global.json > /dev/null 2>&1
+#echo "Dashboard ok !"
 
 server_ip=`minikube ip`
 echo -ne "\033[1;33m+>\033[0;33m IP : $server_ip \n"
