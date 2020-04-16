@@ -2,7 +2,7 @@ FROM alpine
 
 USER root
 
-COPY srcs/install.sh /tmp/install.sh
+COPY install.sh /tmp/install.sh
 
 RUN chmod 755 /tmp/install.sh
 RUN /tmp/install.sh

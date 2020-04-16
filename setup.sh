@@ -39,8 +39,8 @@ eval $(minikube docker-env)
 # NGINX
 cp	srcs/nginx/srcs/index_model.html		srcs/nginx/srcs/index.html
 cp	srcs/nginx/srcs/install_model.sh		srcs/nginx/srcs/install.sh
-sed -i s/admin/$SSH_USERNAME/g				srcs/nginx/srcs/install.sh
-sed -i s/admin/$SSH_PASSWORD/g				srcs/nginx/srcs/install.sh
+sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g				srcs/nginx/srcs/install.sh
+sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g				srcs/nginx/srcs/install.sh
 sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g	srcs/nginx/srcs/index.html
 sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g	srcs/nginx/srcs/index.html
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/nginx/srcs/index.html

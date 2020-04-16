@@ -12,7 +12,7 @@ spec:
     name: ftps
   - port: 21000
     protocol: TCP
-    name: ftps-data
+    name: ftps
   selector:
     app: ftps
   type: LoadBalancer
