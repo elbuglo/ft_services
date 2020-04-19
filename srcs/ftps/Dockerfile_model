@@ -9,4 +9,4 @@ RUN /tmp/install.sh
 
 EXPOSE 21 21000
 
-ENTRYPOINT pure-ftpd -j -Y 2 -p 21000:21000 -P __MINIKUBE_IP__
+ENTRYPOINT pure-ftpd -j -Y 2 -p 21000:21000 -P "__MINIKUBE_IP__"
