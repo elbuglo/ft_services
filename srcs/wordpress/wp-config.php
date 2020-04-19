@@ -22,10 +22,10 @@
 define('DB_NAME', 'wordpress');
 
 /** Utilisateur de la base de données MySQL. */
-define('DB_USER', '__DB_USER__');
+define('DB_USER', 'nine');
 
 /** Mot de passe de la base de données MySQL. */
-define('DB_PASSWORD', '__DB_PASSWORD__');
+define('DB_PASSWORD', 'nine');
 
 /** Adresse de l’hébergement MySQL. */
 define('DB_HOST', 'mysql');
@@ -34,8 +34,8 @@ define('DB_HOST', 'mysql');
 define('DB_CHARSET', 'utf8');
 
 
-define('WP_HOME', 'http://__MINIKUBE_IP__:5050' );
-define('WP_SITEURL', 'http://__MINIKUBE_IP__:5050' );
+define('WP_HOME', 'http://192.168.99.100:5050' );
+define('WP_SITEURL', 'http://192.168.99.100:5050' );
 
 
 /**#@+
