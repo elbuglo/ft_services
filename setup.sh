@@ -61,7 +61,13 @@ sed -i s/__FTPS_PASSWORD__/$FTPS_PASSWORD/g	srcs/ftps/install.sh
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/ftps/Dockerfile
 ##sed -i '' for mac 
 
-SERVICE_LIST="telegraf influxdb grafana nginx ftps"
+# WORDPRESS
+cp	srcs/wordpress/wp-config_model.php		srcs/wordpress/wp-config.php
+sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/wordpress/wp-config.php
+sed -i s/__DB_USER__/$DB_USER/g				srcs/wordpress/wp-config.php
+sed -i s/__DB_PASSWORD__/$DB_PASSWORD/g		srcs/wordpress/wp-config.php
+
+SERVICE_LIST="telegraf influxdb grafana nginx ftps wordpress"
 
 # Clean if arg[1] is clean
 
@@ -80,13 +86,14 @@ fi
 echo -ne " Update grafana db ... \n"
 echo "UPDATE data_source SET url = 'http://influxdb:8086'" | sqlite3 srcs/grafana/grafana.db
 
-printf "Building Docker images...\n"
+echo " Building Docker images...\n"
 
 docker build -t nginx_image srcs/nginx
 docker build -t ftps_image srcs/ftps
 docker build -t telegraf_image srcs/telegraf
 docker build -t influxdb_image srcs/influxdb
 docker build -t grafana_image srcs/grafana
+docker build -t wordpress_image srcs/wordpress
 
 
 echo "Applying yaml:"
@@ -115,18 +122,3 @@ kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c "
 
 server_ip=`minikube ip`
 echo -ne "\033[1;33m+>\033[0;33m IP : $server_ip \n"
-
-
-
-
-
-
-
-# kubectl delete -f srcs/nginx.yaml  >/dev/null 2>&1
-# kubectl apply -f srcs/nginx.yaml
-# kubectl delete -f srcs/ingress.yaml  >/dev/null 2>&1
-# kubectl apply -f srcs/ingress.yaml
-# kubectl delete -f srcs/influxdb-pvc.yaml  >/dev/null 2>&1
-# kubectl apply -f srcs/influxdb-pvc.yaml
-# kubectl delete -f srcs/influxdb.yaml  >/dev/null 2>&1
-# kubectl apply -f srcs/influxdb.yaml
