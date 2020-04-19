@@ -1,7 +1,7 @@
 #!/bin/sh
 
 apk upgrade
-apk add openrc openssl --no-cache
+apk add openssl --no-cache
 apk add pure-ftpd --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 
 # ssl
@@ -13,6 +13,3 @@ chmod 600 /etc/ssl/private/pure-ftpd.pem
 
 adduser -D "__FTPS_USERNAME__"
 echo "__FTPS_USERNAME__:__FTPS_PASSWORD__" | chpasswd
-
-openrc
-touch /run/openrc/softlevel

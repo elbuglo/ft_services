@@ -7,6 +7,6 @@ COPY install.sh /tmp/install.sh
 RUN chmod 755 /tmp/install.sh
 RUN /tmp/install.sh
 
-EXPOSE 21 21000
+EXPOSE 21 21022
 
-ENTRYPOINT pure-ftpd -j -Y 2 -p 21000:21000 -P "__MINIKUBE_IP__"
+ENTRYPOINT pure-ftpd -j -Y 2 -p 21022:21022 -P "__MINIKUBE_IP__"

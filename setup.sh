@@ -19,7 +19,7 @@ DB_USER=nine
 DB_PASSWORD=nine
 
 FTPS_USERNAME=admin
-FTPS_PASSWORD=admin
+FTPS_PASSWORD=admin1234
 
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
@@ -61,7 +61,7 @@ sed -i s/__FTPS_PASSWORD__/$FTPS_PASSWORD/g	srcs/ftps/install.sh
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/ftps/Dockerfile
 ##sed -i '' for mac 
 
-SERVICE_LIST="ftps telegraf influxdb grafana nginx"
+SERVICE_LIST="telegraf influxdb grafana nginx ftps"
 
 # Clean if arg[1] is clean
 

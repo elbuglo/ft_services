@@ -52,11 +52,6 @@ spec:
       - name: ftps
         image: ftps_image
         imagePullPolicy: Never
-        ports:
-        - containerPort: 21
-          hostPort: 21
-        - containerPort: 21000
-          hostPort: 21000
         volumeMounts:
         - name: ftps-persistent-storage
           mountPath: /ftps
