@@ -67,7 +67,7 @@ sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/wordpress/wp-config.php
 sed -i s/__DB_USER__/$DB_USER/g				srcs/wordpress/wp-config.php
 sed -i s/__DB_PASSWORD__/$DB_PASSWORD/g		srcs/wordpress/wp-config.php
 
-SERVICE_LIST="telegraf influxdb grafana nginx ftps wordpress mysql"
+SERVICE_LIST="telegraf influxdb grafana nginx wordpress mysql ftps"
 
 # Clean if arg[1] is clean
 
@@ -112,7 +112,7 @@ do
 	kubectl apply -f srcs/$service.yaml
 	while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
 	do
-		sleep 1;
+		sleep 3;
 		echo "..."
 	done
 	echo "done"

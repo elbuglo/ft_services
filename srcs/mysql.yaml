@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-svc
+  name: mysql
   labels:
-    app: mysql-app
+    app: mysql
 spec:
   type: NodePort
   ports:
@@ -12,7 +12,7 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: mysql-app
+    app: mysql
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -34,7 +34,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   labels:
-    app: mysql-app
+    app: mysql
 spec:
   storageClassName: manual
   accessModes:
@@ -56,20 +56,20 @@ kind: Deployment
 metadata:
   name: mysql-deployment
   labels:
-    app: mysql-app
+    app: mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql-app
+      app: mysql
   template:
     metadata:
       labels:
-        app: mysql-app
+        app: mysql
     spec:
       containers:
       - name: mysql
-        image: services/mysql
+        image: mysql_image
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:

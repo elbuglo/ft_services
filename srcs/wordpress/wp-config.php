@@ -1,42 +1,49 @@
 <?php
 /**
- * La configuration de base de votre installation WordPress.
- *
- * Ce fichier contient les réglages de configuration suivants : réglages MySQL,
- * préfixe de table, clés secrètes, langue utilisée, et ABSPATH.
- * Vous pouvez en savoir plus à leur sujet en allant sur
- * {@link http://codex.wordpress.org/fr:Modifier_wp-config.php Modifier
- * wp-config.php}. C’est votre hébergeur qui doit vous donner vos
- * codes MySQL.
- *
- * Ce fichier est utilisé par le script de création de wp-config.php pendant
- * le processus d’installation. Vous n’avez pas à utiliser le site web, vous
- * pouvez simplement renommer ce fichier en "wp-config.php" et remplir les
- * valeurs.
- *
- * @package WordPress
+ * List of env variables
  */
+$vars = array(
+    'DB_NAME',
+	'DB_USER',
+	'DB_PASSWORD',
+	'DB_HOST'
+);
 
-// ** Réglages MySQL - Votre hébergeur doit vous fournir ces informations. ** //
-/** Nom de la base de données de WordPress. */
-define('DB_NAME', 'wordpress');
+/**
+ * Stock env variables in tab
+ */
+foreach ($vars as $var) {
+    $env = getenv($var);
+    if (!isset($_ENV[$var]) && $env !== false) {
+        $_ENV[$var] = $env;
+    }
+}
 
-/** Utilisateur de la base de données MySQL. */
-define('DB_USER', 'nine');
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+if (!empty($_ENV['DB_NAME']))
+	define( 'DB_NAME', $_ENV['DB_NAME'] );
 
-/** Mot de passe de la base de données MySQL. */
-define('DB_PASSWORD', 'nine');
+/** MySQL database username */
+if (!empty($_ENV['DB_USER']))
+	define( 'DB_USER', $_ENV['DB_USER'] );
 
-/** Adresse de l’hébergement MySQL. */
-define('DB_HOST', 'mysql');
+/** MySQL database password */
+if (!empty($_ENV['DB_PASSWORD']))
+	define( 'DB_PASSWORD', $_ENV['DB_PASSWORD'] );
 
-/** Jeu de caractères à utiliser par la base de données lors de la création des tables. */
-define('DB_CHARSET', 'utf8');
-
+/** MySQL hostname */
+if (!empty($_ENV['DB_HOST']))
+	define( 'DB_HOST', $_ENV['DB_HOST'] );
 
 define('WP_HOME', 'http://192.168.99.100:5050' );
 define('WP_SITEURL', 'http://192.168.99.100:5050' );
 
+/** Database Charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8' );
+
+/** The Database Collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
 
 /**#@+
  * Authentication Unique Keys and Salts.
