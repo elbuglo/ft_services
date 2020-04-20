@@ -67,7 +67,7 @@ sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/wordpress/wp-config.php
 sed -i s/__DB_USER__/$DB_USER/g				srcs/wordpress/wp-config.php
 sed -i s/__DB_PASSWORD__/$DB_PASSWORD/g		srcs/wordpress/wp-config.php
 
-SERVICE_LIST="telegraf influxdb grafana nginx wordpress mysql ftps"
+SERVICE_LIST="telegraf influxdb grafana nginx wordpress mysql ftps phpmyadmin"
 
 # Clean if arg[1] is clean
 
@@ -95,6 +95,7 @@ docker build -t influxdb_image srcs/influxdb
 docker build -t grafana_image srcs/grafana
 docker build -t wordpress_image srcs/wordpress
 docker build -t mysql_image srcs/mysql
+docker build -t phpmyadmin_image srcs/phpmyadmin
 
 
 echo "Applying yaml:"
