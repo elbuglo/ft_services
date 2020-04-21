@@ -123,4 +123,5 @@ done
 kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin"
 
 server_ip=`minikube ip`
+echo -ne "kubectl exec -i $(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n" 
 echo -ne "\033[1;33m+>\033[0;33m IP : $server_ip \n"
