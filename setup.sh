@@ -39,11 +39,13 @@ eval $(minikube docker-env)
 # NGINX
 cp	srcs/nginx/srcs/index_model.html		srcs/nginx/srcs/index.html
 cp	srcs/nginx/srcs/install_model.sh		srcs/nginx/srcs/install.sh
-sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g				srcs/nginx/srcs/install.sh
-sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g				srcs/nginx/srcs/install.sh
+sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g	srcs/nginx/srcs/install.sh
+sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g	srcs/nginx/srcs/install.sh
 sed -i s/__SSH_USERNAME__/$SSH_USERNAME/g	srcs/nginx/srcs/index.html
 sed -i s/__SSH_PASSWORD__/$SSH_PASSWORD/g	srcs/nginx/srcs/index.html
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/nginx/srcs/index.html
+sed -i s/__FTPS_USERNAME__/$FTPS_USERNAME/g	srcs/nginx/srcs/index.html
+sed -i s/__FTPS_PASSWORD__/$FTPS_PASSWORD/g	srcs/nginx/srcs/index.html
 
 # TELEGRAF
 cp	srcs/telegraf/telegraf_model.conf		srcs/telegraf/telegraf.conf
@@ -67,7 +69,7 @@ sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/wordpress/wp-config.php
 sed -i s/__DB_USER__/$DB_USER/g				srcs/wordpress/wp-config.php
 sed -i s/__DB_PASSWORD__/$DB_PASSWORD/g		srcs/wordpress/wp-config.php
 
-SERVICE_LIST="telegraf influxdb grafana nginx wordpress mysql ftps phpmyadmin"
+SERVICE_LIST="telegraf influxdb grafana nginx wordpress ftps phpmyadmin mysql"
 
 # Clean if arg[1] is clean
 
@@ -113,7 +115,7 @@ do
 	kubectl apply -f srcs/$service.yaml
 	while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
 	do
-		sleep 3;
+		sleep 1;
 		echo "..."
 	done
 	echo "done"

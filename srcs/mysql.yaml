@@ -41,7 +41,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 300Mi
 ---
 apiVersion: v1
 kind: Secret
