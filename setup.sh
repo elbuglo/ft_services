@@ -19,7 +19,7 @@ DB_USER=nine
 DB_PASSWORD=nine
 
 FTPS_USERNAME=admin
-FTPS_PASSWORD=admin1234
+FTPS_PASSWORD=admin
 
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
@@ -69,7 +69,7 @@ sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/wordpress/wp-config.php
 sed -i s/__DB_USER__/$DB_USER/g				srcs/wordpress/wp-config.php
 sed -i s/__DB_PASSWORD__/$DB_PASSWORD/g		srcs/wordpress/wp-config.php
 
-SERVICE_LIST="telegraf influxdb grafana nginx wordpress ftps phpmyadmin mysql"
+SERVICE_LIST="telegraf influxdb grafana nginx ftps mysql phpmyadmin wordpress "
 
 # Clean if arg[1] is clean
 
@@ -88,22 +88,22 @@ fi
 echo -ne " Update grafana db ... \n"
 echo "UPDATE data_source SET url = 'http://influxdb:8086'" | sqlite3 srcs/grafana/grafana.db
 
-echo " Building Docker images...\n"
+# echo " Building Docker images...\n"
 
-docker build -t nginx_image srcs/nginx
-docker build -t ftps_image srcs/ftps
-docker build -t telegraf_image srcs/telegraf
-docker build -t influxdb_image srcs/influxdb
-docker build -t grafana_image srcs/grafana
-docker build -t wordpress_image srcs/wordpress
-docker build -t mysql_image srcs/mysql
-docker build -t phpmyadmin_image srcs/phpmyadmin
-
+# docker build -t nginx_image srcs/nginx
+# docker build -t ftps_image srcs/ftps
+# docker build -t telegraf_image srcs/telegraf
+# docker build -t influxdb_image srcs/influxdb
+# docker build -t grafana_image srcs/grafana
+# docker build -t mysql_image srcs/mysql
+# docker build -t phpmyadmin_image srcs/phpmyadmin
+# docker build -t wordpress_image srcs/wordpress
 
 echo "Applying yaml:"
 for service in $SERVICE_LIST
 do
-	echo "	✨ $service:"	
+	echo "	✨ $service:"
+	docker build -t "$service"_image srcs/$service
 	if [[ $SERVICE_LIST == "nginx" ]]
 	then
 		kubectl delete -f srcs/ingress.yaml >/dev/null 2>&1

@@ -12,4 +12,4 @@ yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 chmod 600 /etc/ssl/private/pure-ftpd.pem
 
 adduser -D "admin"
-echo "admin:admin1234" | chpasswd
+echo "admin:admin" | chpasswd
