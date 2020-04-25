@@ -9,4 +9,4 @@ RUN /tmp/install.sh
 
 EXPOSE 21 21000
 
-ENTRYPOINT pure-ftpd -j -Y 2 -p 21000:21000 -P 192.168.99.100
+ENTRYPOINT pure-ftpd -j -Y 2 -p 21000:21000 -P 192.168.99.101
