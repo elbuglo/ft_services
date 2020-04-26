@@ -115,8 +115,8 @@ CREATE TABLE `wp_options` (
 --
 
 INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
-(1, 'siteurl', 'http://192.168.99.102:5050', 'yes'),
-(2, 'home', 'http://192.168.99.102:5050', 'yes'),
+(1, 'siteurl', 'http://192.168.99.103:5050', 'yes'),
+(2, 'home', 'http://192.168.99.103:5050', 'yes'),
 (3, 'blogname', 'Ft_services', 'yes'),
 (4, 'blogdescription', 'by lulebugl', 'yes'),
 (5, 'users_can_register', '0', 'yes'),

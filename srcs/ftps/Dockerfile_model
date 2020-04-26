@@ -1,12 +1,10 @@
 FROM alpine
 
 RUN apk upgrade && \
-    printf '%s\n' \
-      '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
-      >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk update && \
-	apk add openssl && \
-    apk add pure-ftpd@testing="1.0.49-r0" && \
+    apk add openssl && \
+    apk add pure-ftpd && \
     rm -rf /var/cache/apk/*
 
 COPY install.sh /tmp/install.sh
