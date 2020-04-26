@@ -69,6 +69,11 @@ sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/wordpress/wp-config.php
 sed -i s/__DB_USER__/$DB_USER/g				srcs/wordpress/wp-config.php
 sed -i s/__DB_PASSWORD__/$DB_PASSWORD/g		srcs/wordpress/wp-config.php
 
+# MYSQL
+cp	srcs/mysql/wp_model.sql					srcs/mysql/wp.sql
+sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/mysql/wp.sql
+
+
 SERVICE_LIST="telegraf influxdb grafana nginx ftps mysql phpmyadmin wordpress "
 
 # Clean if arg[1] is clean

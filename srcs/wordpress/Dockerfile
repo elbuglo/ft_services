@@ -11,6 +11,10 @@ RUN wget https://wordpress.org/latest.tar.gz; \
 
 COPY wp-config.php /www/wp-config.php
 
+RUN mkdir /www/wp-content/uploads
+
+COPY uploads /www/wp-content/uploads
+
 EXPOSE 5050
 
 ENTRYPOINT php -S 0.0.0.0:5050 -t /www/
