@@ -1,6 +1,13 @@
 FROM alpine
 
-USER root
+RUN apk upgrade && \
+    printf '%s\n' \
+      '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
+      >> /etc/apk/repositories && \
+    apk update && \
+	apk add openssl && \
+    apk add pure-ftpd@testing="1.0.49-r0" && \
+    rm -rf /var/cache/apk/*
 
 COPY install.sh /tmp/install.sh
 
@@ -8,5 +15,3 @@ RUN chmod 755 /tmp/install.sh
 RUN /tmp/install.sh
 
 EXPOSE 21 21000
-
-ENTRYPOINT pure-ftpd -j -Y 2 -p 21000:21000 -P 192.168.99.101

@@ -1,8 +1,6 @@
 #!/bin/sh
 
-apk upgrade
-apk add openssl --no-cache
-apk add pure-ftpd --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+mkdir -p /ftps/admin
 
 # ssl
 yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -13,3 +11,5 @@ chmod 600 /etc/ssl/private/pure-ftpd.pem
 
 adduser -D "admin"
 echo "admin:admin" | chpasswd
+
+/usr/sbin/pure-ftpd -j -Y 2 -p 21000:21000 -P "192.168.99.230"

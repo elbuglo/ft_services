@@ -6,7 +6,7 @@ RUN apk update \
 
 COPY ./init_docker.sh .
 COPY ./init_mysql.sh .
-#COPY wp.sql .
+COPY wp.sql .
 
 RUN chmod 777 init_docker.sh
 RUN chmod 777 init_mysql.sh

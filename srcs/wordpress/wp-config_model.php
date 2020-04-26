@@ -36,8 +36,8 @@ if (!empty($_ENV['DB_PASSWORD']))
 if (!empty($_ENV['DB_HOST']))
 	define( 'DB_HOST', $_ENV['DB_HOST'] );
 
-define('WP_HOME', 'http://192.168.99.100:5050' );
-define('WP_SITEURL', 'http://192.168.99.100:5050' );
+define('WP_HOME', 'http://__MINIKUBE_IP__:5050' );
+define('WP_SITEURL', 'http://__MINIKUBE_IP__:5050' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -86,6 +86,7 @@ $table_prefix = 'wp_';
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 define( 'WP_DEBUG', false );
+define( 'FS_METHOD', 'direct' );
 
 /* That's all, stop editing! Happy publishing. */
 
