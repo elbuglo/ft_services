@@ -12,6 +12,13 @@
 #                                                                              #
 # **************************************************************************** #
 
+# text color
+GREEN="\033[0;32m"
+BROWN="\033[0;33m"
+BLUE="\033[0;34m"
+RED="\033[0;31m"
+RESET="\033[0m"
+
 SSH_USERNAME=nine
 SSH_PASSWORD=nine
 
@@ -81,55 +88,44 @@ SERVICE_LIST="telegraf influxdb grafana nginx mysql phpmyadmin wordpress " #ftps
 
 if [[ $1 = 'clean' ]]
 then
-	printf "➜	Cleaning all services...\n"
+	echo -ne $GREEN"➜	Cleaning all services...\n"$RESET
 	for SERVICE in $SERVICE_LIST
 	do
 		kubectl delete -f srcs/$SERVICE.yaml >/dev/null 2>&1
 	done
 	kubectl delete -f srcs/ingress.yaml >/dev/null 2>&1
-	printf "✓	Clean complete !\n"
+	echo -ne $GREEN"✓	Clean complete !\n"$RESET
 	exit
 fi
 
-echo -ne " Update grafana db ... \n"
+echo -ne $BLUE" Update grafana db ... \n"$RESET
 echo "UPDATE data_source SET url = 'http://influxdb:8086'" | sqlite3 srcs/grafana/grafana.db
 
-# echo " Building Docker images...\n"
-
-# docker build -t nginx_image srcs/nginx
-# docker build -t ftps_image srcs/ftps
-# docker build -t telegraf_image srcs/telegraf
-# docker build -t influxdb_image srcs/influxdb
-# docker build -t grafana_image srcs/grafana
-# docker build -t mysql_image srcs/mysql
-# docker build -t phpmyadmin_image srcs/phpmyadmin
-# docker build -t wordpress_image srcs/wordpress
-
-echo "Applying yaml:"
+echo -ne $GREEN"Applying yaml:\n"$RESET
 for service in $SERVICE_LIST
 do
-	echo "	✨ $service:"
+	echo -ne $GREEN"	--> $service:\n\n"$RESET
 	docker build -t "$service"_image srcs/$service
 	if [[ $SERVICE_LIST == "nginx" ]]
 	then
 		kubectl delete -f srcs/ingress.yaml >/dev/null 2>&1
-		echo "		Creating ingress for nginx..."
+		echo -ne $GREEN"		Creating ingress for nginx...\n"$RESET
 		kubectl apply -f srcs/ingress.yaml
 	fi
 	kubectl delete -f srcs/$service.yaml > /dev/null 2>&1
-	echo "		Creating container..."
+	echo -ne $GREEN"\n		Creating container...\n\n"$RESET
 	kubectl apply -f srcs/$service.yaml
 	while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
 	do
 		sleep 1;
 		echo "..."
 	done
-	echo "done"
+	echo -ne $GREEN"done\n\n"$RESET
 done 
 
 # changing password for grafana
 kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin" > /dev/null 2>&1
 
 server_ip=`minikube ip`
-echo -ne "launch a command on a pod: \nkubectl exec -i $(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n" 
-echo -ne "\033[1;33m+>\033[0;33m IP : $server_ip \n"
+echo -ne $GREEN"launch a command on a pod: \nkubectl exec -it \$(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n\n"$RESET 
+echo -ne $GREEN"-> IP : $server_ip \n"$RESET
