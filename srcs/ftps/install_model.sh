@@ -12,4 +12,4 @@ chmod 600 /etc/ssl/private/pure-ftpd.pem
 adduser -D "__FTPS_USERNAME__"
 echo "__FTPS_USERNAME__:__FTPS_PASSWORD__" | chpasswd
 
-/usr/sbin/pure-ftpd -p 21000:21000 -P "__MINIKUBE_IP__"
+/usr/sbin/pure-ftpd -j -Y 2 -p 30021:30021 -P __MINIKUBE_IP__

@@ -82,7 +82,7 @@ cp	srcs/mysql/wp_model.sql					srcs/mysql/wp.sql
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/mysql/wp.sql
 
 
-SERVICE_LIST="telegraf influxdb grafana nginx mysql phpmyadmin wordpress " #ftps
+SERVICE_LIST="telegraf influxdb grafana nginx mysql phpmyadmin wordpress ftps" #ftps
 
 # Clean if arg[1] is clean
 

@@ -10,4 +10,4 @@ COPY install.sh /tmp/install.sh
 RUN chmod 755 /tmp/install.sh
 RUN /tmp/install.sh
 
-EXPOSE 21 21000
+EXPOSE 21 30021
