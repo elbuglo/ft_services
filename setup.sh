@@ -61,6 +61,7 @@ cp	srcs/ftps/Dockerfile_model				srcs/ftps/Dockerfile
 sed -i s/__FTPS_USERNAME__/$FTPS_USERNAME/g	srcs/ftps/install.sh
 sed -i s/__FTPS_PASSWORD__/$FTPS_PASSWORD/g	srcs/ftps/install.sh
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/ftps/Dockerfile
+sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/ftps/install.sh
 ##sed -i '' for mac 
 
 # WORDPRESS
@@ -74,7 +75,7 @@ cp	srcs/mysql/wp_model.sql					srcs/mysql/wp.sql
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/mysql/wp.sql
 
 
-SERVICE_LIST="telegraf influxdb grafana nginx ftps mysql phpmyadmin wordpress "
+SERVICE_LIST="telegraf influxdb grafana nginx mysql phpmyadmin wordpress " #ftps
 
 # Clean if arg[1] is clean
 
@@ -83,9 +84,9 @@ then
 	printf "➜	Cleaning all services...\n"
 	for SERVICE in $SERVICE_LIST
 	do
-		kubectl delete -f srcs/$SERVICE.yaml > /dev/null
+		kubectl delete -f srcs/$SERVICE.yaml >/dev/null 2>&1
 	done
-	kubectl delete -f srcs/ingress.yaml > /dev/null
+	kubectl delete -f srcs/ingress.yaml >/dev/null 2>&1
 	printf "✓	Clean complete !\n"
 	exit
 fi
@@ -127,8 +128,8 @@ do
 done 
 
 # changing password for grafana
-kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin"
+kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin" > /dev/null 2>&1
 
 server_ip=`minikube ip`
-echo -ne "kubectl exec -i $(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n" 
+echo -ne "launch a command on a pod: \nkubectl exec -i $(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n" 
 echo -ne "\033[1;33m+>\033[0;33m IP : $server_ip \n"

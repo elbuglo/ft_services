@@ -12,4 +12,4 @@ chmod 600 /etc/ssl/private/pure-ftpd.pem
 adduser -D "admin"
 echo "admin:admin" | chpasswd
 
-/usr/sbin/pure-ftpd -j -Y 2 -p 21000:21000 -P "192.168.99.230"
+/usr/sbin/pure-ftpd -p 21000:21000 -P "192.168.99.100"

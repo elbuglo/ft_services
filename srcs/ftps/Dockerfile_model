@@ -1,11 +1,9 @@
 FROM alpine
 
 RUN apk upgrade && \
-    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-    apk update && \
     apk add openssl && \
-    apk add pure-ftpd && \
-    rm -rf /var/cache/apk/*
+    apk add pure-ftpd --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache && \
+    apk add openrc --no-cache
 
 COPY install.sh /tmp/install.sh
 
