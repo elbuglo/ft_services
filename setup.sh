@@ -82,7 +82,7 @@ cp	srcs/mysql/wp_model.sql					srcs/mysql/wp.sql
 sed -i s/__MINIKUBE_IP__/$MINIKUBE_IP/g		srcs/mysql/wp.sql
 
 
-SERVICE_LIST="telegraf influxdb grafana nginx mysql phpmyadmin wordpress" #ftps
+SERVICE_LIST="telegraf influxdb grafana nginx mysql phpmyadmin wordpress ftps" #ftps
 
 # Clean if arg[1] is clean
 
@@ -115,12 +115,12 @@ do
 	kubectl delete -f srcs/$service.yaml > /dev/null 2>&1
 	echo -ne $GREEN"\n		Creating container...\n\n"$RESET
 	kubectl apply -f srcs/$service.yaml
-	while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
-	do
-		sleep 1;
-		echo "..."
-	done
-	echo -ne $GREEN"done\n\n"$RESET
+	# while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
+	# do
+	# 	sleep 1;
+	# 	echo "..."
+	# done
+	 echo -ne $GREEN"done\n\n"$RESET
 done 
 
 # changing password for grafana

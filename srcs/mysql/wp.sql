@@ -72,7 +72,7 @@ CREATE TABLE `wp_comments` (
 --
 
 INSERT INTO `wp_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `comment_author_email`, `comment_author_url`, `comment_author_IP`, `comment_date`, `comment_date_gmt`, `comment_content`, `comment_karma`, `comment_approved`, `comment_agent`, `comment_type`, `comment_parent`, `user_id`) VALUES
-(1, 1, 'Un super commentaire', 'user1@services.42', '', '', '2020-02-07 10:57:57', '2020-02-07 10:57:57', 'Voici un super commentaire', 0, 'post-trashed', '', '', 0, 0),
+(1, 1, 'Un super commentaire', 'user1@services.42', '', '', '2020-04-15 99:99:99', '2020-04-15 99:99:99', 'Voici un super commentaire', 0, 'post-trashed', '', '', 0, 0),
 (2, 35, 'A WordPress Commenter', 'wapuu@wordpress.example', 'https://wordpress.org/', '', '2020-04-21 16:14:50', '2020-04-21 16:14:50', 'Hi, this is a comment.\nTo get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.\nCommenter avatars come from <a href=\"https://gravatar.com\" rel=\"nofollow ugc\">Gravatar</a>.', 0, 'post-trashed', '', '', 0, 0);
 
 -- --------------------------------------------------------
