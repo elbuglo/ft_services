@@ -704,10 +704,10 @@ CREATE TABLE `wp_users` (
 --
 
 INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
-(2, 'admin', '$P$Bhns7.Od1LRaQlAS4sEt.JW5KyHWhH1', 'admin', 'admin@services.42', '', '2020-02-07 11:00:17', '', 0, 'Admin Services'),
-(3, 'user1', '$P$B.Cqjd2XP.tOBobT8jlE5XKcVyx8nz/', 'user1', 'user1@services.42', '', '2020-02-07 11:21:56', '', 0, 'User1 Services'),
-(4, 'user2', '$P$BW07BtB0B6DV1jMh7sG/FGB40yaPsF.', 'user2', 'user2@services.42', '', '2020-02-07 11:24:31', '', 0, 'User2 Services'),
-(5, 'user3', '$P$BYk30Cp/ILESTe3HVr58JMsAAkXe0w.', 'user3', 'user3@services.42', '', '2020-02-07 11:25:25', '', 0, 'User3 Services');
+(2, 'admin', '$P$Bhns7.Od1LRaQlAS4sEt.JW5KyHWhH1', 'admin', 'admin@services.42', '', '2020-04-15 99:99:99', '', 0, 'Admin Services'),
+(3, 'user1', '$P$B.Cqjd2XP.tOBobT8jlE5XKcVyx8nz/', 'user1', 'user1@services.42', '', '2020-04-15 99:99:99', '', 0, 'User1 Services'),
+(4, 'user2', '$P$BW07BtB0B6DV1jMh7sG/FGB40yaPsF.', 'user2', 'user2@services.42', '', '2020-04-15 99:99:99', '', 0, 'User2 Services'),
+(5, 'user3', '$P$BYk30Cp/ILESTe3HVr58JMsAAkXe0w.', 'user3', 'user3@services.42', '', '2020-04-15 99:99:99', '', 0, 'User3 Services');
 
 --
 -- Index pour les tables déchargées

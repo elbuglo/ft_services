@@ -72,7 +72,7 @@ CREATE TABLE `wp_comments` (
 --
 
 INSERT INTO `wp_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `comment_author_email`, `comment_author_url`, `comment_author_IP`, `comment_date`, `comment_date_gmt`, `comment_content`, `comment_karma`, `comment_approved`, `comment_agent`, `comment_type`, `comment_parent`, `user_id`) VALUES
-(1, 1, 'Un super commentaire', 'user1@services.42', '', '', '2020-02-07 10:57:57', '2020-02-07 10:57:57', 'Voici un super commentaire', 0, 'post-trashed', '', '', 0, 0),
+(1, 1, 'Un super commentaire', 'user1@services.42', '', '', '2020-04-15 99:99:99', '2020-04-15 99:99:99', 'Voici un super commentaire', 0, 'post-trashed', '', '', 0, 0),
 (2, 35, 'A WordPress Commenter', 'wapuu@wordpress.example', 'https://wordpress.org/', '', '2020-04-21 16:14:50', '2020-04-21 16:14:50', 'Hi, this is a comment.\nTo get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.\nCommenter avatars come from <a href=\"https://gravatar.com\" rel=\"nofollow ugc\">Gravatar</a>.', 0, 'post-trashed', '', '', 0, 0);
 
 -- --------------------------------------------------------
@@ -704,10 +704,10 @@ CREATE TABLE `wp_users` (
 --
 
 INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
-(2, 'admin', '$P$Bhns7.Od1LRaQlAS4sEt.JW5KyHWhH1', 'admin', 'admin@services.42', '', '2020-02-07 11:00:17', '', 0, 'Admin Services'),
-(3, 'user1', '$P$B.Cqjd2XP.tOBobT8jlE5XKcVyx8nz/', 'user1', 'user1@services.42', '', '2020-02-07 11:21:56', '', 0, 'User1 Services'),
-(4, 'user2', '$P$BW07BtB0B6DV1jMh7sG/FGB40yaPsF.', 'user2', 'user2@services.42', '', '2020-02-07 11:24:31', '', 0, 'User2 Services'),
-(5, 'user3', '$P$BYk30Cp/ILESTe3HVr58JMsAAkXe0w.', 'user3', 'user3@services.42', '', '2020-02-07 11:25:25', '', 0, 'User3 Services');
+(2, 'admin', '$P$Bhns7.Od1LRaQlAS4sEt.JW5KyHWhH1', 'admin', 'admin@services.42', '', '2020-04-15 99:99:99', '', 0, 'Admin Services'),
+(3, 'user1', '$P$B.Cqjd2XP.tOBobT8jlE5XKcVyx8nz/', 'user1', 'user1@services.42', '', '2020-04-15 99:99:99', '', 0, 'User1 Services'),
+(4, 'user2', '$P$BW07BtB0B6DV1jMh7sG/FGB40yaPsF.', 'user2', 'user2@services.42', '', '2020-04-15 99:99:99', '', 0, 'User2 Services'),
+(5, 'user3', '$P$BYk30Cp/ILESTe3HVr58JMsAAkXe0w.', 'user3', 'user3@services.42', '', '2020-04-15 99:99:99', '', 0, 'User3 Services');
 
 --
 -- Index pour les tables déchargées
