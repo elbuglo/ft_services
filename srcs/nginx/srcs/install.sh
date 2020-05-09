@@ -11,8 +11,8 @@ yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
 
 # ssh
-adduser -D "nine" 
-echo "nine:nine" | chpasswd
+adduser -D "lulebugl" 
+echo "lulebugl:password" | chpasswd
 
 mkdir -p /run/nginx
 
