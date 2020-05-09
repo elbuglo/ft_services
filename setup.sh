@@ -28,14 +28,22 @@ DB_PASSWORD=nine
 FTPS_USERNAME=admin
 FTPS_PASSWORD=admin
 
+sudo usermod -aG docker $(whoami);
+
+# if [[ $(minikube status | grep -c "Running") == 0 ]]
+# then
+# 	minikube start --cpus=2 --memory 4000 --vm-driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
+# 	minikube addons enable metrics-server
+# 	minikube addons enable ingress
+# 	minikube addons enable dashboard
+# fi
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
-	minikube start --cpus=2 --memory 4000 --vm-driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
+	minikube start --vm-driver=docker --extra-config=apiserver.service-node-port-range=1-35000
 	minikube addons enable metrics-server
 	minikube addons enable ingress
 	minikube addons enable dashboard
 fi
-
 MINIKUBE_IP=$(minikube ip)
 
 # Set the docker images in Minikube
