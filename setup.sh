@@ -54,13 +54,13 @@ then
 	minikube addons enable ingress
 	minikube addons enable dashboard
 fi
-MINIKUBE_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
-#MINIKUBE_IP=$(minikube ip)
 
-# Set the docker images in Minikube
+MINIKUBE_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
+
+##### Set the docker images in Minikube #####
 eval $(minikube docker-env)
 
-# Replacing
+###### Replacing #####
 
 # NGINX
 cp	srcs/nginx/srcs/index_model.html		srcs/nginx/srcs/index.html
@@ -134,17 +134,14 @@ do
 	kubectl delete -f srcs/$service.yaml > /dev/null 2>&1
 	echo -ne $GREEN"\n		Creating container...\n\n"$RESET
 	kubectl apply -f srcs/$service.yaml
-	# while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
-	# do
-	# 	sleep 1;
-	# 	echo "..."
-	# done
 	 echo -ne $GREEN"done\n\n"$RESET
 done 
+
+###### Display dashboard
+minikube service list
 
 # changing password for grafana
 kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin" > /dev/null 2>&1
 
-server_ip=`minikube ip`
 echo -ne $GREEN"launch a command on a pod: \nkubectl exec -it \$(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n\n"$RESET 
-echo -ne $GREEN"-> IP : $server_ip \n"$RESET
+echo -ne $GREEN"-> IP : $MINIKUBE_IP \n"$RESET
