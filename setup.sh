@@ -30,6 +30,14 @@ FTPS_PASSWORD=admin
 
 sudo usermod -aG docker $(whoami);
 
+if ! getent group docker | grep "user42" ; then
+  sudo adduser $(whoami)
+fi
+
+if ! docker ps ; then
+  echo error docker not working, did u log off and relogon?
+fi
+
 # if [[ $(minikube status | grep -c "Running") == 0 ]]
 # then
 # 	minikube start --cpus=2 --memory 4000 --vm-driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
@@ -37,6 +45,8 @@ sudo usermod -aG docker $(whoami);
 # 	minikube addons enable ingress
 # 	minikube addons enable dashboard
 # fi
+
+# minikube delete
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
 	minikube start --vm-driver=docker --extra-config=apiserver.service-node-port-range=1-35000
@@ -44,7 +54,8 @@ then
 	minikube addons enable ingress
 	minikube addons enable dashboard
 fi
-MINIKUBE_IP=$(minikube ip)
+MINIKUBE_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
+#MINIKUBE_IP=$(minikube ip)
 
 # Set the docker images in Minikube
 eval $(minikube docker-env)
