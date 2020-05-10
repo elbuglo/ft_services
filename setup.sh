@@ -27,29 +27,29 @@ FTPS_PASSWORD=admin
 
 ## sudo usermod -aG docker $(whoami);
 
-# if ! getent group docker | grep "user42" ; then
-#   sudo adduser $(whoami)
-# fi
+if ! getent group docker | grep "user42" ; then
+  sudo adduser $(whoami)
+fi
 
-# if ! docker ps ; then
-#   echo error docker not working, did u log off and relogon?
-# fi
-
-# if [[ $(minikube status | grep -c "Running") == 0 ]]
-# then
-# 	minikube start --vm-driver=docker --extra-config=apiserver.service-node-port-range=1-35000
-# 	minikube addons enable metrics-server
-# 	minikube addons enable ingress
-# 	minikube addons enable dashboard
-# fi
+if ! docker ps ; then
+  echo error docker not working, did u log off and relogon?
+fi
 
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
-	minikube start --cpus=2 --memory 4000 --vm-driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
+	minikube start --vm-driver=docker --extra-config=apiserver.service-node-port-range=1-35000
 	minikube addons enable metrics-server
 	minikube addons enable ingress
 	minikube addons enable dashboard
 fi
+
+# if [[ $(minikube status | grep -c "Running") == 0 ]]
+# then
+# 	minikube start --cpus=2 --memory 4000 --vm-driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
+# 	minikube addons enable metrics-server
+# 	minikube addons enable ingress
+# 	minikube addons enable dashboard
+# fi
 
 MINIKUBE_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
 
@@ -134,4 +134,6 @@ minikube service list
 kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin" > /dev/null 2>&1
 
 echo -ne $GREEN"launch a command on a pod: \nkubectl exec -it \$(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n\n"$RESET 
+echo -ne $GREEN"killing a pod : \n	kubectl exec -it \$(kubectl get pods | grep mysql | cut -d\" \" -f1) -- /bin/sh -c \"kill 1\"\n"
+echo -ne "kubectl exec -it \$(kubectl get pods | grep influxdb | cut -d\" \" -f1) -- /bin/sh -c \"kill 1\"\n"$RESET
 echo -ne $GREEN"-> IP : $MINIKUBE_IP \n"$RESET
