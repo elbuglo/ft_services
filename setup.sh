@@ -134,6 +134,6 @@ minikube service list
 kubectl exec -ti $(kubectl get pods | grep grafana | cut -d" " -f1) -- bash -c " cd ./grafana-6.6.0/bin/ ; ./grafana-cli admin reset-admin-password admin" > /dev/null 2>&1
 
 echo -ne $GREEN"launch a command on a pod: \nkubectl exec -it \$(kubectl get pods | grep pod-name | cut -d" " -f1) -- command \n\n"$RESET 
-echo -ne $GREEN"killing a pod : \n	kubectl exec -it \$(kubectl get pods | grep mysql | cut -d\" \" -f1) -- /bin/sh -c \"kill 1\"\n"
+echo -ne $GREEN"killing a pod : \n	kubectl exec -it \$(kubectl get pods | grep mysql | cut -d\" \" -f1) -- /bin/sh -c \"ps\"\n"
 echo -ne "kubectl exec -it \$(kubectl get pods | grep influxdb | cut -d\" \" -f1) -- /bin/sh -c \"kill 1\"\n"$RESET
 echo -ne $GREEN"-> IP : $MINIKUBE_IP \n"$RESET
